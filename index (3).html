@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каса — Arcua Tovum</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:1.25rem 1rem 3rem}
+h1{font-size:13px;font-weight:500;color:#888;letter-spacing:.04em;text-transform:uppercase;margin-bottom:1.25rem}
+
+/* TOTAL */
+.total-block{margin-bottom:1.25rem}
+.total-label{font-size:13px;color:#888;margin-bottom:3px}
+.total-sum{font-size:32px;font-weight:600;letter-spacing:-.02em;color:#1a1a1a}
+.total-sub{font-size:12px;color:#999;margin-top:4px}
+
+/* STATS ROW */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1rem}
+.stat{background:#fff;border-radius:10px;padding:10px 12px;border:1px solid #e8e6e0}
+.stat-label{font-size:10px;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+select,input[type=number],input[type=date]{
+  width:100%;padding:7px 8px;border:1px solid #ddd;border-radius:8px;
+  font-size:13px;background:#fff;color:#1a1a1a;outline:none;
+  -webkit-appearance:none;appearance:none
+}
+select:focus,input:focus{border-color:#aaa}
+
+/* FLOAT */
+.float-card{background:#fff;border:1px solid #e8e6e0;border-radius:10px;padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:10px}
+.float-card label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
+.float-card input{margin:0;flex:1;max-width:130px;font-weight:600}
+.float-card span{font-size:13px;color:#bbb}
+
+/* FORM */
+.form-card{background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:1rem 1.1rem;margin-bottom:1rem}
+.mode-tabs{display:flex;gap:5px;margin-bottom:12px}
+.mode-tab{flex:1;padding:7px 0;font-size:12px;text-align:center;border-radius:8px;border:1px solid #ddd;background:#f5f4f0;cursor:pointer;color:#888;font-weight:500}
+.mode-tab.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.cat-tab{padding:4px 10px;font-size:11px;border-radius:6px;border:1px solid #ddd;background:#f5f4f0;cursor:pointer;color:#888}
+.cat-tab.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.row label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
+.row input{margin:0;width:72px;flex-shrink:0;text-align:center}
+.price-preview{font-size:14px;font-weight:600;text-align:right;flex:1;color:#1a1a1a}
+/* bundle */
+.bundle-rows{margin-bottom:8px}
+.bundle-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.bundle-row select{margin:0;flex:1;font-size:12px}
+.bundle-row input{margin:0;width:50px;flex-shrink:0;text-align:center}
+.btn-del-row{background:none;border:none;cursor:pointer;color:#bbb;font-size:18px;line-height:1;padding:0 2px;flex-shrink:0}
+.btn-del-row:hover{color:#e55}
+.btn-sm{padding:4px 10px;font-size:12px;border:1px solid #ddd;border-radius:7px;background:#f5f4f0;cursor:pointer;color:#666}
+.btn-sm:hover{background:#fff}
+.bundle-orig-row{font-size:13px;color:#888;margin-bottom:6px}
+.bundle-orig-row span{font-weight:600;color:#1a1a1a}
+.bundle-price-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bundle-price-row label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
+.bundle-price-row input{margin:0;flex:1}
+.discount-badge{font-size:12px;padding:3px 9px;border-radius:7px;background:#eafaf1;color:#27ae60;border:1px solid #a9dfbf;white-space:nowrap;flex-shrink:0;display:none}
+
+.btn-add{width:100%;padding:11px;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;border:none;border-radius:9px;cursor:pointer;margin-top:2px;letter-spacing:.01em}
+.btn-add:hover{background:#333}
+.btn-add:active{transform:scale(.99)}
+.sync-status{font-size:11px;text-align:center;margin-top:7px;min-height:16px;color:#999}
+.sync-status.ok{color:#27ae60}
+.sync-status.err{color:#e74c3c}
+.sync-status.loading{color:#e67e22}
+
+/* LOG */
+.log-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.log-title{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:.04em}
+.btn-clear{font-size:12px;color:#bbb;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px}
+.btn-clear:hover{background:#fff;color:#888}
+.log-empty{font-size:13px;color:#bbb;text-align:center;padding:1.5rem 0;background:#fff;border:1px solid #e8e6e0;border-radius:10px}
+.log-list{display:flex;flex-direction:column;gap:5px}
+.log-item{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 13px;background:#fff;border:1px solid #e8e6e0;border-radius:10px}
+.log-item.is-bundle{border-color:#a9dfbf}
+.log-item.is-pending{opacity:.6}
+.log-item-name{font-size:13px;line-height:1.35;max-width:66%}
+.log-item-meta{font-size:11px;color:#999;margin-top:2px;line-height:1.5}
+.log-item-right{text-align:right;flex-shrink:0}
+.log-item-sum{font-size:14px;font-weight:600}
+.log-item-orig{font-size:11px;color:#bbb;text-decoration:line-through}
+.log-item-time{font-size:11px;color:#bbb;margin-top:2px}
+.log-item-sync{font-size:10px;margin-top:2px}
+.log-item-sync.ok{color:#27ae60}
+.log-item-sync.pending{color:#e67e22}
+.log-item-sync.err{color:#e74c3c}
+.btn-del-log{font-size:11px;color:#ccc;background:none;border:none;cursor:pointer;margin-top:3px;padding:0}
+.btn-del-log:hover{color:#e55}
+.bundle-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;background:#eafaf1;color:#27ae60;margin-left:5px;vertical-align:middle}
+
+/* CONFIG */
+.config-section{margin-top:1.5rem;background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:1rem 1.1rem}
+.config-toggle{font-size:12px;color:#999;cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none}
+.config-toggle:hover{color:#555}
+.config-body{margin-top:10px;display:none}
+.config-label{font-size:12px;color:#888;margin-bottom:4px}
+.config-input{width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:8px;font-size:12px;font-family:monospace;margin-bottom:8px;outline:none}
+.config-input:focus{border-color:#aaa}
+.btn-save-cfg{padding:7px 16px;font-size:12px;border:1px solid #ddd;border-radius:7px;background:#f5f4f0;cursor:pointer}
+.btn-save-cfg:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.cfg-note{font-size:11px;color:#bbb;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Arcua Tovum — Каса</h1>
+
+  <div class="total-block">
+    <div class="total-label">Готівка в касі</div>
+    <div class="total-sum" id="cash-total">0 грн</div>
+    <div class="total-sub" id="cash-sub">0 продажів</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Дата</div>
+      <input type="date" id="date-sel" style="margin:0;font-size:12px;padding:5px 7px">
+    </div>
+    <div class="stat">
+      <div class="stat-label">Зміна</div>
+      <select id="shift-sel" style="margin:0;font-size:12px;padding:5px 7px">
+        <option>Зміна 1</option><option>Зміна 2</option>
+      </select>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Продавець</div>
+      <select id="seller-sel" style="margin:0;font-size:12px;padding:5px 7px">
+        <option>Іра</option><option>Ліля</option><option>Богдана</option>
+        <option>Лєра</option><option>Єгор</option><option>Аня</option>
+        <option>Захар</option><option>Олег</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="float-card">
+    <label>Готівка на початок зміни</label>
+    <input type="number" id="float-input" min="0" placeholder="0" oninput="saveFloat();renderTotal()">
+    <span>грн</span>
+  </div>
+
+  <div class="form-card">
+    <div class="mode-tabs">
+      <div class="mode-tab on" onclick="setMode('single',this)">Один товар</div>
+      <div class="mode-tab" onclick="setMode('bundle',this)">Комплект зі знижкою</div>
+    </div>
+
+    <div id="mode-single">
+      <div class="cat-tabs" id="cat-tabs">
+        <div class="cat-tab on" data-cat="all">Всі</div>
+        <div class="cat-tab" data-cat="Журнали">Журнали</div>
+        <div class="cat-tab" data-cat="Книга">Книги</div>
+        <div class="cat-tab" data-cat="Комплекти журналів">Комплекти</div>
+        <div class="cat-tab" data-cat="Мерч">Мерч</div>
+      </div>
+      <select id="prod-sel"><option value="">— Оберіть товар —</option></select>
+      <div class="row">
+        <label>Кількість</label>
+        <input type="number" id="qty" min="1" value="1">
+        <div class="price-preview" id="price-preview"></div>
+      </div>
+    </div>
+
+    <div id="mode-bundle" style="display:none">
+      <div class="bundle-rows" id="bundle-rows"></div>
+      <button class="btn-sm" style="margin-bottom:10px" onclick="addBundleRow()">+ додати товар</button>
+      <div class="bundle-orig-row">Сума без знижки: <span id="bundle-orig">0 грн</span></div>
+      <div class="bundle-price-row">
+        <label>Ціна комплекту</label>
+        <input type="number" id="bundle-price" min="0" placeholder="введіть суму" oninput="updateBundleDiscount()">
+        <div class="discount-badge" id="discount-badge"></div>
+      </div>
+    </div>
+
+    <button class="btn-add" onclick="addSale()">+ Додати продаж</button>
+    <div class="sync-status" id="sync-status"></div>
+  </div>
+
+  <div class="log-header">
+    <div class="log-title">Продажі зміни</div>
+    <button class="btn-clear" onclick="clearAll()">Очистити</button>
+  </div>
+  <div id="log-wrap"></div>
+
+  <!-- CONFIG -->
+  <div class="config-section">
+    <div class="config-toggle" onclick="toggleConfig()">
+      <span id="cfg-arrow">▶</span> Налаштування Google Sheets
+    </div>
+    <div class="config-body" id="cfg-body">
+      <div style="margin-top:10px">
+        <div class="config-label">URL вебхуку (Apps Script)</div>
+        <input class="config-input" id="cfg-url" type="url" placeholder="https://script.google.com/macros/s/...">
+        <button class="btn-save-cfg" onclick="saveCfg()">Зберегти</button>
+        <p class="cfg-note" style="margin-top:8px">Вставте сюди посилання на опублікований Google Apps Script. Інструкція нижче.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRODUCTS=[
+  {name:'Антологія "THE ARC" (№1)',price:500,cat:'Журнали'},
+  {name:'Антологія "THE ARC" (№2)',price:500,cat:'Журнали'},
+  {name:'Антологія "THE BLACK SEA WHALE" (№1)',price:500,cat:'Журнали'},
+  {name:'Антологія "THE BLACK SEA WHALE" (№2)',price:500,cat:'Журнали'},
+  {name:'Антологія "THE BLACK SEA WHALE" (№3)',price:500,cat:'Журнали'},
+  {name:'Антологія "ТРЕТЯ ДІЯ" (№3)',price:500,cat:'Журнали'},
+  {name:'Книга "ЗДОРОВИЙ ГЛУЗД"',price:315,cat:'Книга'},
+  {name:'Книга "Кінець віри"',price:595,cat:'Книга'},
+  {name:'Книга "КЛЕПТОКРАТІЯ ПО-АМЕРИКАНСЬКИ"',price:460,cat:'Книга'},
+  {name:'Книга "КОРОТКА ІСТОРІЯ МІЗОГІНІЇ" Джек Голланд',price:455,cat:'Книга'},
+  {name:'Книга "Куди подівся Коцик?" Оленка Загородник',price:375,cat:'Книга'},
+  {name:'Книга "МОЧИ МАНТУ"',price:350,cat:'Книга'},
+  {name:'Книга "НЕСПРОМОЖНА ДЕРЖАВА"',price:395,cat:'Книга'},
+  {name:'Книга "ОПОВІДЬ" Роберт Маккі',price:695,cat:'Книга'},
+  {name:'Українська ідентичність у графічному дизайні 1945–1989 років',price:1500,cat:'Книга'},
+  {name:'Комплект The Arc №1 & The Arc №2',price:850,cat:'Комплекти журналів'},
+  {name:'Комплект The Arc №1 & The Arc №2 & Третя дія №3',price:1200,cat:'Комплекти журналів'},
+  {name:'Комплект The Arc №1 & Третя дія №3',price:850,cat:'Комплекти журналів'},
+  {name:'Комплект The Arc №2 & Третя дія №3',price:850,cat:'Комплекти журналів'},
+  {name:'Комплект The Black Sea Whale №1 & №2',price:850,cat:'Комплекти журналів'},
+  {name:'Комплект The Black Sea Whale №1 & №2 & №3',price:1200,cat:'Комплекти журналів'},
+  {name:'Комплект The Black Sea Whale №1 & №3',price:850,cat:'Комплекти журналів'},
+  {name:'Комплект The Black Sea Whale №2 & №3',price:850,cat:'Комплекти журналів'},
+  {name:'Комплект листівок "Чуємо, бачимо, пишемо"',price:400,cat:'Мерч'},
+  {name:'Листівка "Божественне втручання"',price:80,cat:'Мерч'},
+  {name:'Листівка "Від Цариці Небесної до дияволиці"',price:80,cat:'Мерч'},
+  {name:'Листівка "Жінки біля воріт"',price:80,cat:'Мерч'},
+  {name:'Листівка "Звільнення"',price:80,cat:'Мерч'},
+  {name:'Листівка "Коротка історія мізогінії"',price:80,cat:'Мерч'},
+  {name:'Листівка "Мізогінія в добу надлюдини"',price:80,cat:'Мерч'},
+  {name:'Листівка "Пандорини дочки"',price:80,cat:'Мерч'},
+  {name:'Листівка "Політики тіла"',price:80,cat:'Мерч'},
+  {name:'Листівка "Прекрасний новий світ"',price:80,cat:'Мерч'},
+  {name:'Листівка "Секрети вікторіанців"',price:80,cat:'Мерч'},
+  {name:'Стікерпак "Здоровий Глузд поспішає на допомогу"',price:60,cat:'Мерч'},
+  {name:'Стікерпак "Потаємне життя Коцика із Сихова"',price:60,cat:'Мерч'},
+  {name:'Торба-шопер ЗГУТ',price:450,cat:'Мерч'},
+  {name:'Футболка "The future is female" S',price:700,cat:'Мерч'},
+  {name:'Футболка "The future is female" M',price:700,cat:'Мерч'},
+  {name:'Футболка "The future is female" L',price:700,cat:'Мерч'},
+  {name:'Футболка "The future is female" XL',price:700,cat:'Мерч'},
+  {name:'Хустка "Два кольори"',price:300,cat:'Мерч'},
+];
+
+let mode='single';
+let currentCat='all';
+let sales=JSON.parse(localStorage.getItem('at_cash_sales')||'[]');
+let bundleRowIds=[];
+
+// init
+document.getElementById('date-sel').value=new Date().toISOString().split('T')[0];
+const savedFloat=localStorage.getItem('at_cash_float')||'';
+if(savedFloat)document.getElementById('float-input').value=savedFloat;
+const savedUrl=localStorage.getItem('at_cash_webhook')||'';
+if(savedUrl)document.getElementById('cfg-url').value=savedUrl;
+
+function fmt(n){return Math.round(n).toLocaleString('uk-UA');}
+function nowTime(){const d=new Date();return d.toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit'});}
+function fmtDate(iso){if(!iso)return '';const[y,m,d]=iso.split('-');return d+'.'+m+'.'+y;}
+function saveFloat(){localStorage.setItem('at_cash_float',document.getElementById('float-input').value||'');}
+function saveCfg(){
+  const url=document.getElementById('cfg-url').value.trim();
+  localStorage.setItem('at_cash_webhook',url);
+  const st=document.getElementById('sync-status');
+  st.textContent='URL збережено ✓';st.className='sync-status ok';
+  setTimeout(()=>{st.textContent='';st.className='sync-status';},2000);
+}
+function toggleConfig(){
+  const body=document.getElementById('cfg-body');
+  const arrow=document.getElementById('cfg-arrow');
+  const open=body.style.display==='block';
+  body.style.display=open?'none':'block';
+  arrow.textContent=open?'▶':'▼';
+}
+
+function renderTotal(){
+  const floatVal=parseFloat(document.getElementById('float-input').value)||0;
+  const salesSum=sales.reduce((a,s)=>a+s.sum,0);
+  document.getElementById('cash-total').textContent=fmt(floatVal+salesSum)+' грн';
+  const n=sales.length;
+  let sub=n+' '+(n===1?'продаж':n<5?'продажі':'продажів')+' на '+fmt(salesSum)+' грн';
+  if(floatVal>0)sub+=' · початок: '+fmt(floatVal)+' грн';
+  document.getElementById('cash-sub').textContent=sub;
+}
+
+function setMode(m,el){
+  mode=m;
+  document.querySelectorAll('.mode-tab').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('mode-single').style.display=m==='single'?'block':'none';
+  document.getElementById('mode-bundle').style.display=m==='bundle'?'block':'none';
+  if(m==='bundle'&&bundleRowIds.length===0){addBundleRow();addBundleRow();}
+}
+
+function buildSelect(){
+  const sel=document.getElementById('prod-sel');
+  sel.innerHTML='<option value="">— Оберіть товар —</option>';
+  PRODUCTS.forEach((p,i)=>{
+    if(currentCat!=='all'&&p.cat!==currentCat)return;
+    const o=document.createElement('option');
+    o.value=i;o.textContent=p.name+' — '+p.price+' грн';
+    sel.appendChild(o);
+  });
+  updatePreview();
+}
+function updatePreview(){
+  const i=document.getElementById('prod-sel').value;
+  const qty=parseInt(document.getElementById('qty').value)||1;
+  const prev=document.getElementById('price-preview');
+  if(i===''){prev.textContent='';return;}
+  prev.textContent=fmt(PRODUCTS[i].price*qty)+' грн';
+}
+document.getElementById('prod-sel').addEventListener('change',updatePreview);
+document.getElementById('qty').addEventListener('input',updatePreview);
+document.getElementById('cat-tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.cat-tab');if(!t)return;
+  document.querySelectorAll('.cat-tab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');currentCat=t.dataset.cat;buildSelect();
+});
+
+function buildProdOptions(selEl){
+  selEl.innerHTML='<option value="">— товар —</option>';
+  PRODUCTS.forEach((p,i)=>{
+    const o=document.createElement('option');
+    o.value=i;o.textContent=p.name+' ('+p.price+' грн)';
+    selEl.appendChild(o);
+  });
+}
+function addBundleRow(){
+  const id='br'+Date.now()+Math.floor(Math.random()*9999);
+  bundleRowIds.push(id);
+  const div=document.createElement('div');
+  div.className='bundle-row';div.id=id;
+  div.innerHTML=`<select onchange="updateBundleOrig()"></select><input type="number" min="1" value="1" oninput="updateBundleOrig()"><button class="btn-del-row" onclick="removeBundleRow('${id}')">×</button>`;
+  document.getElementById('bundle-rows').appendChild(div);
+  buildProdOptions(div.querySelector('select'));
+}
+function removeBundleRow(id){
+  bundleRowIds=bundleRowIds.filter(x=>x!==id);
+  const el=document.getElementById(id);if(el)el.remove();
+  updateBundleOrig();
+}
+function getBundleItems(){
+  return bundleRowIds.map(id=>{
+    const row=document.getElementById(id);if(!row)return null;
+    const sel=row.querySelector('select');
+    const qty=parseInt(row.querySelector('input').value)||1;
+    if(!sel.value)return null;
+    return{idx:parseInt(sel.value),qty};
+  }).filter(Boolean);
+}
+function updateBundleOrig(){
+  const items=getBundleItems();
+  const orig=items.reduce((a,it)=>a+PRODUCTS[it.idx].price*it.qty,0);
+  document.getElementById('bundle-orig').textContent=fmt(orig)+' грн';
+  updateBundleDiscount();
+}
+function updateBundleDiscount(){
+  const items=getBundleItems();
+  const orig=items.reduce((a,it)=>a+PRODUCTS[it.idx].price*it.qty,0);
+  const price=parseFloat(document.getElementById('bundle-price').value);
+  const badge=document.getElementById('discount-badge');
+  if(!isNaN(price)&&orig>0&&price<orig){
+    badge.textContent='-'+fmt(orig-price)+' грн';badge.style.display='block';
+  }else{badge.style.display='none';}
+}
+
+// ── SYNC ──────────────────────────────────────────────────────────
+function getWebhookUrl(){return localStorage.getItem('at_cash_webhook')||'';}
+
+async function syncSale(sale){
+  const url=getWebhookUrl();
+  if(!url)return;
+  try{
+    // Build rows: one row per item (for correct quantity tracking)
+    const rows=[];
+    if(sale.type==='bundle'){
+      sale.items.forEach(it=>{
+        rows.push({
+          timestamp: sale.date+'T'+sale.time,
+          date: sale.date,
+          shift: sale.shift,
+          seller: sale.seller,
+          product: it.name,
+          qty: it.qty,
+          price: it.price,
+          sum: it.price*it.qty,
+          sale_sum: sale.sum,           // actual cash received
+          discount: sale.discount,
+          type: 'bundle',
+          sale_id: sale.id
+        });
+      });
+    } else {
+      rows.push({
+        timestamp: sale.date+'T'+sale.time,
+        date: sale.date,
+        shift: sale.shift,
+        seller: sale.seller,
+        product: sale.name,
+        qty: sale.qty,
+        price: sale.price,
+        sum: sale.sum,
+        sale_sum: sale.sum,
+        discount: 0,
+        type: 'single',
+        sale_id: sale.id
+      });
+    }
+    const resp=await fetch(url,{method:'POST',body:JSON.stringify({rows}),headers:{'Content-Type':'text/plain'}});
+    const text=await resp.text();
+    return text.includes('OK')||text.includes('ok')||text.includes('success');
+  }catch(e){return false;}
+}
+
+async function addSale(){
+  const shift=document.getElementById('shift-sel').value;
+  const seller=document.getElementById('seller-sel').value;
+  const date=document.getElementById('date-sel').value;
+  const st=document.getElementById('sync-status');
+  let sale;
+
+  if(mode==='single'){
+    const i=document.getElementById('prod-sel').value;
+    if(i==='')return;
+    const qty=Math.max(1,parseInt(document.getElementById('qty').value)||1);
+    const p=PRODUCTS[i];
+    sale={id:Date.now(),type:'single',name:p.name,price:p.price,qty,sum:p.price*qty,time:nowTime(),date,shift,seller,synced:false};
+    document.getElementById('prod-sel').value='';
+    document.getElementById('qty').value=1;
+    updatePreview();
+  } else {
+    const items=getBundleItems();
+    if(items.length===0)return;
+    const orig=items.reduce((a,it)=>a+PRODUCTS[it.idx].price*it.qty,0);
+    const priceInput=parseFloat(document.getElementById('bundle-price').value);
+    const bundleSum=isNaN(priceInput)?orig:priceInput;
+    sale={
+      id:Date.now(),type:'bundle',
+      items:items.map(it=>({name:PRODUCTS[it.idx].name,price:PRODUCTS[it.idx].price,qty:it.qty})),
+      origSum:orig,sum:bundleSum,discount:orig-bundleSum,
+      time:nowTime(),date,shift,seller,synced:false
+    };
+    document.getElementById('bundle-rows').innerHTML='';
+    bundleRowIds=[];
+    document.getElementById('bundle-price').value='';
+    document.getElementById('bundle-orig').textContent='0 грн';
+    document.getElementById('discount-badge').style.display='none';
+    addBundleRow();addBundleRow();
+  }
+
+  sales.unshift(sale);
+  save();renderLog();renderTotal();
+
+  const webhookUrl=getWebhookUrl();
+  if(webhookUrl){
+    st.textContent='Надсилаємо…';st.className='sync-status loading';
+    const ok=await syncSale(sale);
+    sale.synced=ok;
+    save();renderLog();
+    st.textContent=ok?'Збережено в Google Sheets ✓':'Помилка синхронізації — дані збережені локально';
+    st.className=ok?'sync-status ok':'sync-status err';
+    setTimeout(()=>{st.textContent='';st.className='sync-status';},3000);
+  }
+}
+
+async function retryPending(){
+  const pending=sales.filter(s=>!s.synced);
+  if(!pending.length||!getWebhookUrl())return;
+  for(const s of pending){
+    const ok=await syncSale(s);
+    if(ok)s.synced=true;
+  }
+  save();renderLog();
+}
+
+function save(){localStorage.setItem('at_cash_sales',JSON.stringify(sales));}
+
+function delSale(id){
+  sales=sales.filter(s=>s.id!==id);save();renderLog();renderTotal();
+}
+function clearAll(){
+  if(!sales.length)return;
+  if(!confirm('Очистити всі продажі цієї зміни?'))return;
+  sales=[];save();renderLog();renderTotal();
+}
+
+function renderLog(){
+  const wrap=document.getElementById('log-wrap');
+  if(!sales.length){wrap.innerHTML='<div class="log-empty">Ще немає продажів</div>';return;}
+  const webhookUrl=getWebhookUrl();
+  wrap.innerHTML='<div class="log-list">'+sales.map(s=>{
+    const syncHtml=webhookUrl
+      ?(s.synced
+        ?'<div class="log-item-sync ok">↑ синхронізовано</div>'
+        :'<div class="log-item-sync pending">⏳ очікує синхронізації</div>')
+      :'';
+    if(s.type==='bundle'){
+      const itemsStr=s.items.map(it=>it.name+(it.qty>1?' ×'+it.qty:'')).join('<br>');
+      return`<div class="log-item is-bundle">
+        <div>
+          <div class="log-item-name">Комплект<span class="bundle-tag">знижка</span></div>
+          <div class="log-item-meta">${itemsStr}</div>
+          <div class="log-item-meta">${s.seller} · ${s.shift}</div>
+        </div>
+        <div class="log-item-right">
+          <div class="log-item-sum">${fmt(s.sum)} грн</div>
+          ${s.discount>0?`<div class="log-item-orig">${fmt(s.origSum)} грн</div>`:''}
+          <div class="log-item-time">${fmtDate(s.date)} ${s.time}</div>
+          ${syncHtml}
+          <button class="btn-del-log" onclick="delSale(${s.id})">видалити</button>
+        </div>
+      </div>`;
+    }
+    return`<div class="log-item">
+      <div>
+        <div class="log-item-name">${s.name}</div>
+        <div class="log-item-meta">${s.qty} шт. × ${fmt(s.price)} грн · ${s.seller} · ${s.shift}</div>
+      </div>
+      <div class="log-item-right">
+        <div class="log-item-sum">${fmt(s.sum)} грн</div>
+        <div class="log-item-time">${fmtDate(s.date)} ${s.time}</div>
+        ${syncHtml}
+        <button class="btn-del-log" onclick="delSale(${s.id})">видалити</button>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+// retry unsynced on load
+window.addEventListener('load',()=>setTimeout(retryPending,1000));
+
+buildSelect();renderLog();renderTotal();
+</script>
+</body>
+</html>
