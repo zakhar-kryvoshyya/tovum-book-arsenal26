@@ -10,13 +10,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .wrap{max-width:560px;margin:0 auto;padding:1.25rem 1rem 3rem}
 h1{font-size:13px;font-weight:500;color:#888;letter-spacing:.04em;text-transform:uppercase;margin-bottom:1.25rem}
 
-/* TOTAL */
 .total-block{margin-bottom:1.25rem}
 .total-label{font-size:13px;color:#888;margin-bottom:3px}
 .total-sum{font-size:32px;font-weight:600;letter-spacing:-.02em;color:#1a1a1a}
 .total-sub{font-size:12px;color:#999;margin-top:4px}
 
-/* STATS ROW */
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}
 .stats-sellers{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}
 .stat{background:#fff;border-radius:10px;padding:10px 12px;border:1px solid #e8e6e0}
@@ -28,17 +26,12 @@ select,input[type=number],input[type=date]{
 }
 select:focus,input:focus{border-color:#aaa}
 
-/* FLOAT */
 .float-card{background:#fff;border:1px solid #e8e6e0;border-radius:10px;padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:10px}
 .float-card label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
 .float-card input{margin:0;flex:1;max-width:130px;font-weight:600}
 .float-card span{font-size:13px;color:#bbb}
 
-/* FORM */
 .form-card{background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:1rem 1.1rem;margin-bottom:1rem}
-.mode-tabs{display:flex;gap:5px;margin-bottom:12px}
-.mode-tab{flex:1;padding:7px 0;font-size:12px;text-align:center;border-radius:8px;border:1px solid #ddd;background:#f5f4f0;cursor:pointer;color:#888;font-weight:500}
-.mode-tab.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 .cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .cat-tab{padding:4px 10px;font-size:11px;border-radius:6px;border:1px solid #ddd;background:#f5f4f0;cursor:pointer;color:#888}
 .cat-tab.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
@@ -46,7 +39,6 @@ select:focus,input:focus{border-color:#aaa}
 .row label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
 .row input{margin:0;width:72px;flex-shrink:0;text-align:center}
 .price-preview{font-size:14px;font-weight:600;text-align:right;flex:1;color:#1a1a1a}
-
 
 .btn-add{width:100%;padding:11px;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;border:none;border-radius:9px;cursor:pointer;margin-top:2px;letter-spacing:.01em}
 .btn-add:hover{background:#333}
@@ -56,6 +48,47 @@ select:focus,input:focus{border-color:#aaa}
 .sync-status.err{color:#e74c3c}
 .sync-status.loading{color:#e67e22}
 
+/* CLOSE SHIFT BUTTON */
+.btn-close-shift{width:100%;padding:11px;font-size:14px;font-weight:600;background:#fff;color:#1a1a1a;border:1.5px solid #1a1a1a;border-radius:9px;cursor:pointer;margin-bottom:1rem;letter-spacing:.01em}
+.btn-close-shift:hover{background:#f5f4f0}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:16px 16px 0 0;padding:1.5rem 1.25rem 2rem;width:100%;max-width:560px;animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-title{font-size:16px;font-weight:600;margin-bottom:1.25rem}
+.modal-section{margin-bottom:1rem}
+.modal-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}
+.summary-item{background:#f5f4f0;border-radius:8px;padding:10px 12px}
+.summary-item-label{font-size:11px;color:#999;margin-bottom:2px}
+.summary-item-val{font-size:16px;font-weight:600}
+.summary-item.highlight{background:#1a1a1a;color:#fff}
+.summary-item.highlight .summary-item-label{color:#aaa}
+.summary-item.diff-pos{background:#eafaf1}
+.summary-item.diff-pos .summary-item-val{color:#27ae60}
+.summary-item.diff-neg{background:#fdf0ef}
+.summary-item.diff-neg .summary-item-val{color:#e74c3c}
+.modal-input-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.modal-input-row label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
+.modal-input-row input{margin:0;flex:1;font-size:16px;font-weight:600;padding:10px 12px}
+.modal-input-row span{font-size:13px;color:#bbb;flex-shrink:0}
+.modal-diff{font-size:13px;text-align:center;min-height:18px;margin-bottom:1rem;font-weight:500}
+.modal-diff.ok{color:#27ae60}
+.modal-diff.err{color:#e74c3c}
+.modal-diff.zero{color:#888}
+.modal-actions{display:flex;gap:8px}
+.btn-modal-cancel{flex:1;padding:11px;font-size:14px;background:#f5f4f0;color:#888;border:none;border-radius:9px;cursor:pointer}
+.btn-modal-cancel:hover{background:#e8e6e0}
+.btn-modal-confirm{flex:2;padding:11px;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;border:none;border-radius:9px;cursor:pointer}
+.btn-modal-confirm:hover{background:#333}
+.btn-modal-confirm:disabled{background:#ccc;cursor:default}
+.modal-status{font-size:12px;text-align:center;margin-top:8px;min-height:16px;color:#999}
+.modal-status.ok{color:#27ae60}
+.modal-status.err{color:#e74c3c}
+.modal-status.loading{color:#e67e22}
+
 /* LOG */
 .log-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .log-title{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:.04em}
@@ -64,36 +97,17 @@ select:focus,input:focus{border-color:#aaa}
 .log-empty{font-size:13px;color:#bbb;text-align:center;padding:1.5rem 0;background:#fff;border:1px solid #e8e6e0;border-radius:10px}
 .log-list{display:flex;flex-direction:column;gap:5px}
 .log-item{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 13px;background:#fff;border:1px solid #e8e6e0;border-radius:10px}
-.log-item.is-bundle{border-color:#a9dfbf}
-.log-item.is-pending{opacity:.6}
 .log-item-name{font-size:13px;line-height:1.35;max-width:66%}
 .log-item-meta{font-size:11px;color:#999;margin-top:2px;line-height:1.5}
 .log-item-right{text-align:right;flex-shrink:0}
 .log-item-sum{font-size:14px;font-weight:600}
-.log-item-orig{font-size:11px;color:#bbb;text-decoration:line-through}
 .log-item-time{font-size:11px;color:#bbb;margin-top:2px}
 .log-item-sync{font-size:10px;margin-top:2px}
 .log-item-sync.ok{color:#27ae60}
 .log-item-sync.pending{color:#e67e22}
-.log-item-sync.err{color:#e74c3c}
 .btn-del-log{font-size:11px;color:#ccc;background:none;border:none;cursor:pointer;margin-top:3px;padding:0}
 .btn-del-log:hover{color:#e55}
-.bundle-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;background:#eafaf1;color:#27ae60;margin-left:5px;vertical-align:middle}
 
-/* CASH END */
-.cash-end-card{background:#fff;border:1px solid #e8e6e0;border-radius:10px;padding:10px 14px;margin-bottom:1rem}
-.cash-end-title{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
-.cash-end-row{display:flex;align-items:center;gap:10px}
-.cash-end-row label{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
-.cash-end-row input{margin:0;flex:1;max-width:130px;font-weight:600}
-.cash-end-row span{font-size:13px;color:#bbb;flex-shrink:0}
-.btn-send-cash{padding:7px 14px;font-size:12px;font-weight:500;background:#1a1a1a;color:#fff;border:none;border-radius:7px;cursor:pointer;white-space:nowrap;flex-shrink:0}
-.btn-send-cash:hover{background:#333}
-.btn-send-cash:disabled{background:#ccc;cursor:default}
-.cash-end-status{font-size:11px;margin-top:6px;min-height:14px;color:#999}
-.cash-end-status.ok{color:#27ae60}
-.cash-end-status.err{color:#e74c3c}
-.cash-end-status.loading{color:#e67e22}
 .config-section{margin-top:1.5rem;background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:1rem 1.1rem}
 .config-toggle{font-size:12px;color:#999;cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none}
 .config-toggle:hover{color:#555}
@@ -170,22 +184,11 @@ select:focus,input:focus{border-color:#aaa}
         <div class="price-preview" id="price-preview"></div>
       </div>
     </div>
-
     <button class="btn-add" onclick="addSale()">+ Додати продаж</button>
     <div class="sync-status" id="sync-status"></div>
   </div>
 
-  <!-- ГОТІВКА НА КІНЕЦЬ ЗМІНИ -->
-  <div class="cash-end-card">
-    <div class="cash-end-title">Закриття зміни — підрахунок готівки</div>
-    <div class="cash-end-row">
-      <label>Готівка на кінець</label>
-      <input type="number" id="cash-end-input" min="0" placeholder="0">
-      <span>грн</span>
-      <button class="btn-send-cash" onclick="sendCashEnd()">Надіслати</button>
-    </div>
-    <div class="cash-end-status" id="cash-end-status"></div>
-  </div>
+  <button class="btn-close-shift" onclick="openCloseShift()">Закрити зміну і надіслати звіт →</button>
 
   <div class="log-header">
     <div class="log-title">Продажі зміни</div>
@@ -193,7 +196,6 @@ select:focus,input:focus{border-color:#aaa}
   </div>
   <div id="log-wrap"></div>
 
-  <!-- CONFIG -->
   <div class="config-section">
     <div class="config-toggle" onclick="toggleConfig()">
       <span id="cfg-arrow">▶</span> Налаштування Google Sheets
@@ -203,9 +205,57 @@ select:focus,input:focus{border-color:#aaa}
         <div class="config-label">URL вебхуку (Apps Script)</div>
         <input class="config-input" id="cfg-url" type="url" placeholder="https://script.google.com/macros/s/...">
         <button class="btn-save-cfg" onclick="saveCfg()">Зберегти</button>
-        <p class="cfg-note" style="margin-top:8px">Вставте сюди посилання на опублікований Google Apps Script. Інструкція нижче.</p>
+        <p class="cfg-note" style="margin-top:8px">Вставте сюди посилання на опублікований Google Apps Script.</p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- МОДАЛЬНЕ ВІКНО ЗАКРИТТЯ ЗМІНИ -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-title">Закриття зміни</div>
+
+    <div class="modal-label">Підсумок</div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-item-label">Дата і зміна</div>
+        <div class="summary-item-val" id="m-shift">—</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Продавець(ці)</div>
+        <div class="summary-item-val" id="m-sellers">—</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Кількість продажів</div>
+        <div class="summary-item-val" id="m-count">0</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Сума продажів</div>
+        <div class="summary-item-val" id="m-sales">0 грн</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Початок зміни</div>
+        <div class="summary-item-val" id="m-start">0 грн</div>
+      </div>
+      <div class="summary-item highlight">
+        <div class="summary-item-label">Очікувано в касі</div>
+        <div class="summary-item-val" id="m-expected">0 грн</div>
+      </div>
+    </div>
+
+    <div class="modal-label">Фактична готівка в касі</div>
+    <div class="modal-input-row">
+      <input type="number" id="modal-cash-actual" min="0" placeholder="0" oninput="updateModalDiff()">
+      <span>грн</span>
+    </div>
+    <div class="modal-diff" id="modal-diff"></div>
+
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal()">Скасувати</button>
+      <button class="btn-modal-confirm" id="btn-confirm" onclick="confirmCloseShift()">Надіслати звіт</button>
+    </div>
+    <div class="modal-status" id="modal-status"></div>
   </div>
 </div>
 
@@ -258,7 +308,6 @@ const PRODUCTS=[
 let currentCat='all';
 let sales=JSON.parse(localStorage.getItem('at_cash_sales')||'[]');
 
-// init
 document.getElementById('date-sel').value=new Date().toISOString().split('T')[0];
 const savedFloat=localStorage.getItem('at_cash_float')||'';
 if(savedFloat)document.getElementById('float-input').value=savedFloat;
@@ -294,7 +343,6 @@ function renderTotal(){
   document.getElementById('cash-sub').textContent=sub;
 }
 
-
 function buildSelect(){
   const sel=document.getElementById('prod-sel');
   sel.innerHTML='<option value="">— Оберіть товар —</option>';
@@ -321,6 +369,124 @@ document.getElementById('cat-tabs').addEventListener('click',e=>{
   t.classList.add('on');currentCat=t.dataset.cat;buildSelect();
 });
 
+// ── MODAL ─────────────────────────────────────────────────────────
+function openCloseShift(){
+  const floatVal=parseFloat(document.getElementById('float-input').value)||0;
+  const salesSum=sales.reduce((a,s)=>a+s.sum,0);
+  const date=document.getElementById('date-sel').value;
+  const shift=document.getElementById('shift-sel').value;
+  const seller=document.getElementById('seller-sel').value;
+  const seller2=document.getElementById('seller2-sel').value||'';
+  const sellers=seller+(seller2?', '+seller2:'');
+
+  document.getElementById('m-shift').textContent=fmtDate(date)+' · '+shift;
+  document.getElementById('m-sellers').textContent=sellers;
+  document.getElementById('m-count').textContent=sales.length;
+  document.getElementById('m-sales').textContent=fmt(salesSum)+' грн';
+  document.getElementById('m-start').textContent=fmt(floatVal)+' грн';
+  document.getElementById('m-expected').textContent=fmt(floatVal+salesSum)+' грн';
+  document.getElementById('modal-cash-actual').value='';
+  document.getElementById('modal-diff').textContent='';
+  document.getElementById('modal-diff').className='modal-diff';
+  document.getElementById('modal-status').textContent='';
+  document.getElementById('modal-status').className='modal-status';
+  document.getElementById('btn-confirm').disabled=false;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('modal-cash-actual').focus(),200);
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('modal-overlay'))closeModal();
+}
+
+function updateModalDiff(){
+  const floatVal=parseFloat(document.getElementById('float-input').value)||0;
+  const salesSum=sales.reduce((a,s)=>a+s.sum,0);
+  const expected=floatVal+salesSum;
+  const actual=parseFloat(document.getElementById('modal-cash-actual').value);
+  const diffEl=document.getElementById('modal-diff');
+  if(isNaN(actual)){diffEl.textContent='';diffEl.className='modal-diff';return;}
+  const diff=actual-expected;
+  if(diff===0){
+    diffEl.textContent='Готівка сходиться ✓';diffEl.className='modal-diff zero';
+  } else if(diff>0){
+    diffEl.textContent='Надлишок: +'+fmt(diff)+' грн';diffEl.className='modal-diff ok';
+  } else {
+    diffEl.textContent='Нестача: '+fmt(diff)+' грн';diffEl.className='modal-diff err';
+  }
+}
+
+async function confirmCloseShift(){
+  const url=getWebhookUrl();
+  if(!url){
+    const st=document.getElementById('modal-status');
+    st.textContent='Вебхук не налаштовано — відкрийте «Налаштування Google Sheets»';
+    st.className='modal-status err';
+    return;
+  }
+  const actual=parseFloat(document.getElementById('modal-cash-actual').value);
+  if(isNaN(actual)||actual<0){
+    const st=document.getElementById('modal-status');
+    st.textContent='Введіть фактичну суму готівки';
+    st.className='modal-status err';
+    return;
+  }
+
+  const floatVal=parseFloat(document.getElementById('float-input').value)||0;
+  const salesSum=sales.reduce((a,s)=>a+s.sum,0);
+  const date=document.getElementById('date-sel').value;
+  const shift=document.getElementById('shift-sel').value;
+  const seller=document.getElementById('seller-sel').value;
+  const seller2=document.getElementById('seller2-sel').value||'';
+  const sellers=seller+(seller2?', '+seller2:'');
+
+  const btn=document.getElementById('btn-confirm');
+  const st=document.getElementById('modal-status');
+  btn.disabled=true;
+  st.textContent='Надсилаємо…';st.className='modal-status loading';
+
+  try{
+    const payload={
+      action:'cash_end',
+      date,shift,
+      seller:sellers,
+      cash_start: floatVal,
+      cash_sales: salesSum,
+      cash_expected: floatVal+salesSum,
+      cash_actual: actual,
+      cash_diff: actual-(floatVal+salesSum),
+      sales_count: sales.length,
+      timestamp: date+'T'+nowTime()
+    };
+    const resp=await fetch(url,{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'text/plain'}});
+    const text=await resp.text();
+    const ok=text.includes('OK')||text.includes('ok')||text.includes('success');
+    if(ok){
+      st.textContent='Звіт надіслано ✓';st.className='modal-status ok';
+      setTimeout(()=>{
+        closeModal();
+        if(confirm('Зміну закрито. Очистити журнал продажів для наступної зміни?')){
+          sales=[];save();renderLog();renderTotal();
+          document.getElementById('float-input').value='';
+          localStorage.removeItem('at_cash_float');
+          renderTotal();
+        }
+      },1200);
+    } else {
+      st.textContent='Помилка — спробуйте ще раз';st.className='modal-status err';
+      btn.disabled=false;
+    }
+  }catch(e){
+    st.textContent='Помилка мережі';st.className='modal-status err';
+    btn.disabled=false;
+  }
+}
 
 // ── SYNC ──────────────────────────────────────────────────────────
 function getWebhookUrl(){return localStorage.getItem('at_cash_webhook')||'';}
@@ -329,41 +495,21 @@ async function syncSale(sale){
   const url=getWebhookUrl();
   if(!url)return;
   try{
-    const rows=[];
     const sellers=sale.seller+(sale.seller2?', '+sale.seller2:'');
-    if(sale.type==='bundle'){
-      sale.items.forEach(it=>{
-        rows.push({
-          timestamp: sale.date+'T'+sale.time,
-          date: sale.date,
-          shift: sale.shift,
-          seller: sellers,
-          product: it.name,
-          qty: it.qty,
-          price: it.price,
-          sum: it.price*it.qty,
-          sale_sum: sale.sum,
-          discount: sale.discount,
-          type: 'bundle',
-          sale_id: sale.id
-        });
-      });
-    } else {
-      rows.push({
-        timestamp: sale.date+'T'+sale.time,
-        date: sale.date,
-        shift: sale.shift,
-        seller: sellers,
-        product: sale.name,
-        qty: sale.qty,
-        price: sale.price,
-        sum: sale.sum,
-        sale_sum: sale.sum,
-        discount: 0,
-        type: 'single',
-        sale_id: sale.id
-      });
-    }
+    const rows=[{
+      timestamp: sale.date+'T'+sale.time,
+      date: sale.date,
+      shift: sale.shift,
+      seller: sellers,
+      product: sale.name,
+      qty: sale.qty,
+      price: sale.price,
+      sum: sale.sum,
+      sale_sum: sale.sum,
+      discount: 0,
+      type: 'single',
+      sale_id: sale.id
+    }];
     const resp=await fetch(url,{method:'POST',body:JSON.stringify({rows}),headers:{'Content-Type':'text/plain'}});
     const text=await resp.text();
     return text.includes('OK')||text.includes('ok')||text.includes('success');
@@ -401,47 +547,6 @@ async function addSale(){
   }
 }
 
-async function sendCashEnd(){
-  const url=getWebhookUrl();
-  const val=parseFloat(document.getElementById('cash-end-input').value);
-  const st=document.getElementById('cash-end-status');
-  const btn=document.querySelector('.btn-send-cash');
-  if(isNaN(val)||val<0){st.textContent='Введіть суму готівки';st.className='cash-end-status err';return;}
-  if(!url){st.textContent='Вебхук не налаштовано';st.className='cash-end-status err';return;}
-
-  const shift=document.getElementById('shift-sel').value;
-  const seller=document.getElementById('seller-sel').value;
-  const seller2=document.getElementById('seller2-sel').value||'';
-  const sellers=seller+(seller2?', '+seller2:'');
-  const date=document.getElementById('date-sel').value;
-  const floatVal=parseFloat(document.getElementById('float-input').value)||0;
-  const salesSum=sales.reduce((a,s)=>a+s.sum,0);
-
-  btn.disabled=true;
-  st.textContent='Надсилаємо…';st.className='cash-end-status loading';
-  try{
-    const payload={
-      action:'cash_end',
-      date,shift,
-      seller:sellers,
-      cash_start: floatVal,
-      cash_sales: salesSum,
-      cash_expected: floatVal+salesSum,
-      cash_actual: val,
-      cash_diff: val-(floatVal+salesSum),
-      timestamp: date+'T'+nowTime()
-    };
-    const resp=await fetch(url,{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'text/plain'}});
-    const text=await resp.text();
-    const ok=text.includes('OK')||text.includes('ok')||text.includes('success');
-    st.textContent=ok?'Збережено ✓':'Помилка — спробуйте ще раз';
-    st.className=ok?'cash-end-status ok':'cash-end-status err';
-  }catch(e){
-    st.textContent='Помилка мережі';st.className='cash-end-status err';
-  }
-  btn.disabled=false;
-}
-
 async function retryPending(){
   const pending=sales.filter(s=>!s.synced);
   if(!pending.length||!getWebhookUrl())return;
@@ -473,23 +578,6 @@ function renderLog(){
         ?'<div class="log-item-sync ok">↑ синхронізовано</div>'
         :'<div class="log-item-sync pending">⏳ очікує синхронізації</div>')
       :'';
-    if(s.type==='bundle'){
-      const itemsStr=s.items.map(it=>it.name+(it.qty>1?' ×'+it.qty:'')).join('<br>');
-      return`<div class="log-item is-bundle">
-        <div>
-          <div class="log-item-name">Комплект<span class="bundle-tag">знижка</span></div>
-          <div class="log-item-meta">${itemsStr}</div>
-          <div class="log-item-meta">${s.seller}${s.seller2?', '+s.seller2:''} · ${s.shift}</div>
-        </div>
-        <div class="log-item-right">
-          <div class="log-item-sum">${fmt(s.sum)} грн</div>
-          ${s.discount>0?`<div class="log-item-orig">${fmt(s.origSum)} грн</div>`:''}
-          <div class="log-item-time">${fmtDate(s.date)} ${s.time}</div>
-          ${syncHtml}
-          <button class="btn-del-log" onclick="delSale(${s.id})">видалити</button>
-        </div>
-      </div>`;
-    }
     return`<div class="log-item">
       <div>
         <div class="log-item-name">${s.name}</div>
@@ -505,9 +593,7 @@ function renderLog(){
   }).join('')+'</div>';
 }
 
-// retry unsynced on load
 window.addEventListener('load',()=>setTimeout(retryPending,1000));
-
 buildSelect();renderLog();renderTotal();
 </script>
 </body>
